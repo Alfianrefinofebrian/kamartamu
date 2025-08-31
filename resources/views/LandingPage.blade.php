@@ -14,17 +14,25 @@
   <!-- React Navbar -->
   <div id="navbar"></div>
 
-<!-- Hero Section -->
-<section class="relative min-h-screen pt-16">
-  <div id="hero-slider" class="relative w-full h-[calc(100vh-64px)] overflow-hidden">
-    <!-- Slide 1 -->
-    <img src="/images/bg1.png" 
-         class="absolute inset-0 w-full h-full object-cover object-center opacity-100 transition-opacity duration-700"
-         id="slide1">
-    <!-- Slide 2 -->
-    <img src="/images/bg2.png" 
-         class="absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-700"
-         id="slide2">
+<!-- Hero Section IG Style -->
+<section class="relative min-h-screen pt-16 overflow-hidden">
+  <div class="relative w-full h-[calc(100vh-64px)] overflow-hidden">
+    <!-- Wrapper -->
+    <div id="hero-slider" class="flex w-full h-full transition-transform duration-700 ease-in-out">
+      <!-- Slide 1 -->
+      <img src="/images/bg1.webp" class="slide w-full h-full object-cover flex-shrink-0">
+      <!-- Slide 2 -->
+      <img src="/images/bg2.webp" class="slide w-full h-full object-cover flex-shrink-0">
+      <!-- Slide 3 -->
+      <img src="/images/bg3.webp" class="slide w-full h-full object-cover flex-shrink-0">
+    </div>
+
+    <!-- Dots -->
+    <div id="slider-dots" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex"></div>
+
+    <!-- Zones -->
+    <div id="left-zone" class="absolute inset-y-0 left-0 w-1/3 cursor-pointer"></div>
+    <div id="right-zone" class="absolute inset-y-0 right-0 w-1/3 cursor-pointer"></div>
   </div>
 </section>
 
