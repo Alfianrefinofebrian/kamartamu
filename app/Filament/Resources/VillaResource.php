@@ -2,26 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VillaResource\Pages;
 use App\Models\Villa;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Resources\Resource;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ImageColumn;
+use App\Filament\Resources\VillaResource\Pages; // Add this import
 
 class VillaResource extends Resource
 {
     protected static ?string $model = Villa::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office';
-
+    protected static ?string $navigationIcon = 'heroicon-o-home';
     protected static ?string $navigationLabel = 'Villas';
     protected static ?string $pluralModelLabel = 'Villas';
     protected static ?string $modelLabel = 'Villa';
@@ -30,40 +23,36 @@ class VillaResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->label('Nama Villa')
-                    ->required(),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
 
-                TextInput::make('location')
-                    ->label('Lokasi')
-                    ->required(),
+                Forms\Components\TextInput::make('location')
+                    ->required()
+                    ->maxLength(255),
 
-                FileUpload::make('image')
-                    ->label('Foto')
-                    ->image()
-                    ->directory('villas'),
+                Forms\Components\TextInput::make('capacity')
+                    ->numeric()
+                    ->label('Capacity (people)'),
 
-                Textarea::make('short_description')
-                    ->label('Deskripsi Singkat'),
+                Forms\Components\TextInput::make('weekday_price')
+                    ->label('Weekday Price'),
 
-                Textarea::make('long_description')
-                    ->label('Deskripsi Lengkap'),
+                Forms\Components\TextInput::make('weekend_price')
+                    ->label('Weekend Price'),
 
-                TextInput::make('capacity')
-                    ->label('Kapasitas')
-                    ->numeric(),
+                Forms\Components\TextInput::make('holiday_price')
+                    ->label('Holiday Price'),
 
-                TextInput::make('weekday_price')
-                    ->label('Harga Weekday'),
+                Forms\Components\TextInput::make('phone')
+                    ->label('Phone Number'),
 
-                TextInput::make('weekend_price')
-                    ->label('Harga Weekend / Hari Libur'),
+                Forms\Components\FileUpload::make('image')
+                    ->directory('villas')
+                    ->image(),
 
-                TextInput::make('holiday_price')
-                    ->label('Harga Hari Besar'),
-
-                TextInput::make('contact')
-                    ->label('Kontak'),
+                Forms\Components\Textarea::make('note')
+                    ->rows(3),
             ]);
     }
 
@@ -71,40 +60,22 @@ class VillaResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')
-                    ->label('Foto')
-                    ->square(),
-
-                TextColumn::make('name')
-                    ->label('Nama Villa')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('location')
-                    ->label('Lokasi'),
-
-                TextColumn::make('weekday_price')
-                    ->label('Harga Weekday'),
-            ])
-            ->filters([
-                //
+                Tables\Columns\ImageColumn::make('image')->square(),
+                Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('location')->sortable(),
+                Tables\Columns\TextColumn::make('capacity')->label('Capacity'),
+                Tables\Columns\TextColumn::make('weekday_price'),
+                Tables\Columns\TextColumn::make('weekend_price'),
+                Tables\Columns\TextColumn::make('holiday_price'),
+                Tables\Columns\TextColumn::make('phone'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

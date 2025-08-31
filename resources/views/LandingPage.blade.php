@@ -1,80 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamar Tamu</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Kamar Tamu - Villa Rentals in Yogyakarta</title>
+     @viteReactRefresh
+    @vite(['resources/css/app.css', 'resources/js/app.jsx'])
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="#benefits">Benefits</a></li>
-            <li><a href="#properties">Top Properties</a></li>
-            <li><a href="#villas">Our Villas</a></li>
-            <li><a href="#contact">Contact Us</a></li>
-        </ul>
-        <div class="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+  <!-- React Navbar -->
+  <div id="navbar"></div>
 
-    <!-- Carousel -->
-    <div class="carousel" id="carousel">
-        <div class="carousel-track" id="track">
-            @foreach($sliders as $slide)
-                <img src="{{ asset('storage/' . $slide->image) }}" alt="{{ $slide->title }}">
-            @endforeach
+<!-- Hero Section -->
+<section class="relative min-h-screen pt-16">
+  <div id="hero-slider" class="relative w-full h-[calc(100vh-64px)] overflow-hidden">
+    <!-- Slide 1 -->
+    <img src="/images/bg1.png" 
+         class="absolute inset-0 w-full h-full object-cover object-center opacity-100 transition-opacity duration-700"
+         id="slide1">
+    <!-- Slide 2 -->
+    <img src="/images/bg2.png" 
+         class="absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-700"
+         id="slide2">
+  </div>
+</section>
+
+
+    <!-- Why Stay Section -->
+<section id="benefits" class="py-20 bg-[#FFFDEB]">
+  <div class="container mx-auto px-4">
+   <!-- Title -->
+<h2 class="font-montserrat text-center text-3xl md:text-6xl font-semibold text-gray-900 mb-20">
+  Why Stay With Kamar Tamu?
+</h2>
+
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Item 1 -->
+      <div class="text-center">
+        <div class="relative w-56 h-72 mx-auto overflow-hidden rounded-t-full shadow-lg">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800" 
+               alt="Beda Villa, Beda Cerita" 
+               class="w-full h-full object-cover" />
         </div>
+        <h3 class="mt-6 text-lg font-bold text-gray-900">Beda Villa, Beda Cerita</h3>
+        <p class="mt-2 text-gray-700 text-sm leading-relaxed">
+          Setiap unit Kamar Tamu punya desain yang berbeda, ini memberikan pengalaman yang tak terlupakan.
+        </p>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="text-center">
+        <div class="relative w-56 h-72 mx-auto overflow-hidden rounded-t-full shadow-lg">
+          <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=800" 
+               alt="Stay 2 Malam, Gratis 1 Malam" 
+               class="w-full h-full object-cover" />
+        </div>
+        <h3 class="mt-6 text-lg font-bold text-gray-900">Stay 2 Malam, Gratis 1 Malam</h3>
+        <p class="mt-2 text-gray-700 text-sm leading-relaxed">
+          Nginep 2 malam, kami kasih 1 malam tambahan. Lebih lama, lebih hemat.
+        </p>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="text-center">
+        <div class="relative w-56 h-72 mx-auto overflow-hidden rounded-t-full shadow-lg">
+          <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=800" 
+               alt="Disambut langsung oleh Tuan Rumah" 
+               class="w-full h-full object-cover" />
+        </div>
+        <h3 class="mt-6 text-lg font-bold text-gray-900">Disambut langsung oleh Tuan Rumah</h3>
+        <p class="mt-2 text-gray-700 text-sm leading-relaxed">
+          Anda disambut dan dijamu langsung oleh Tuan Rumah. Lebih personal. Lebih hangat.
+        </p>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="text-center">
+        <div class="relative w-56 h-72 mx-auto overflow-hidden rounded-t-full shadow-lg">
+          <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800" 
+               alt="13 Villa terbaik di Yogyakarta" 
+               class="w-full h-full object-cover" />
+        </div>
+        <h3 class="mt-6 text-lg font-bold text-gray-900">13 Villa terbaik di Yogyakarta</h3>
+        <p class="mt-2 text-gray-700 text-sm leading-relaxed">
+          Kami punya 13 unit villa terbaik di Jogja. Pilih sesuai selera, semua nyaman dan eksklusif.
+        </p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section" id="benefits">
-        <h2 class="benefits-title">Why Stay With Kamar Tamu?</h2>
-    </section>
+<!-- Villas Section -->
+  <section id="villas" class="py-20 bg-[#FFFBF0]">
+    <div class="container mx-auto px-4">
+      <!-- Title -->
+      <h2 class="text-5xl font-bold text-[#00576D] mb-2">VILLAS</h2>
+      <div class="h-1 w-20 bg-[#00576D] mb-12"></div>
 
-    <!-- Properties Section -->
-    <section id="properties">
-        <h2 class="section-title">Top Properties</h2>
-        <div class="properties-container">
-            @foreach($properties as $property)
-                <div class="property-card">
-                    @if($property->image)
-                        <img src="{{ asset('storage/' . $property->image) }}" alt="{{ $property->title }}">
-                    @endif
-                    <div class="property-content">
-                        <h3>{{ $property->title }}</h3>
-                        <p>{{ $property->description }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section>
+      <!-- Villas Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        @foreach($villas as $villa)
+          <a href="{{ route('villas.show', $villa) }}" class="block shadow-md hover:shadow-xl transition rounded-xl overflow-hidden bg-white">
+            @if($villa->image)
+              <img src="{{ asset('storage/' . $villa->image) }}" alt="{{ $villa->name }}" class="w-full h-48 object-cover">
+            @endif
+            <div class="p-4">
+              <h3 class="font-bold text-lg">{{ $villa->name }}</h3>
+              <p class="text-gray-600">{{ $villa->location }}</p>
+            </div>
+          </a>
+        @endforeach
+      </div>
+    </div>
+  </section>
 
-    <!-- Villas Section -->
-    <section class="villas-section" id="villas">
-        <h2 class="section-title">Our Villas</h2>
-        <div class="villas-container">
-            @foreach($villas as $villa)
-                <div class="villa-card">
-                    @if($villa->image)
-                        <img src="{{ asset('storage/' . $villa->image) }}" alt="{{ $villa->name }}">
-                    @endif
-                    <h3>{{ $villa->name }}</h3>
-                    <p>{{ $villa->location }}</p>
-                    <p><strong>Harga Weekday:</strong> Rp{{ number_format($villa->harga_weekday, 0, ',', '.') }}</p>
-                </div>
-            @endforeach
-        </div>
-    </section>
 
-    <script src="{{ asset('js/script.js') }}"></script>
+    
+  <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>
