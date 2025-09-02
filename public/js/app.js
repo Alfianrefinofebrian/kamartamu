@@ -77,7 +77,7 @@ slider.addEventListener("transitionend", () => {
 // auto slide
 function resetAutoSlide() {
   clearInterval(autoSlide);
-  autoSlide = setInterval(nextSlide, 20000);
+  autoSlide = setInterval(nextSlide, 4000);
 }
 
 // klik kiri/kanan
