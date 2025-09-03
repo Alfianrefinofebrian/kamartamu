@@ -1,9 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // ⬅️ WAJIB
 import Navbar from "./Navbar";
 import HeroSlider from "./hero-slider"; 
 import VillasPage from "./villas"; 
+import PropertyDetail from "./components/villas/propertydetail";  
 import "../css/app.css";
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<VillasPage />} />
+        <Route path="/property/:id" element={<PropertyDetail />} />
+      </Routes>
+    </Router>
+  );
+}
 
 // Navbar
 const navbarElement = document.getElementById("navbar");
@@ -30,7 +43,7 @@ const villasElement = document.getElementById("villas");
 if (villasElement) {
   ReactDOM.createRoot(villasElement).render(
     <React.StrictMode>
-      <VillasPage />
+      <App />  {/* ⬅️ Ganti ini, jangan langsung VillasPage */}
     </React.StrictMode>
   );
 }

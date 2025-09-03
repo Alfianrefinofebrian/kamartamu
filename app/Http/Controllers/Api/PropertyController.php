@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    // GET /api/properties
+    // List all properties
     public function index()
     {
-        return response()->json(Property::all());
+        return response()->json(Property::with('images')->get());
     }
 
-    // GET /api/properties/{id}
+    // Detail property by ID
     public function show($id)
     {
-        $property = Property::findOrFail($id);
+        $property = Property::with('images')->findOrFail($id);
         return response()->json($property);
     }
 }

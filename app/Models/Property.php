@@ -20,4 +20,10 @@ class Property extends Model
         'weekend_price',
         'holiday_price',
     ];
+
+    // Relasi ke PropertyImage
+    public function images()
+    {
+        return $this->hasMany(PropertyImage::class);
+    }
 }
