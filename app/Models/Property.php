@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; // <-- tambahin ini
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
@@ -10,8 +10,14 @@ class Property extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
+        'location',
         'description',
-        'image',
+        'image_url',
+        'capacity',
+        'max_capacity',
+        'weekday_price',
+        'weekend_price',
+        'holiday_price',
     ];
 }
