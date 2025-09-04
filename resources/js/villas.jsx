@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import VillaCard from "./components/villas/villascard";
 import { getProperties } from "./api";
+import { useNavigate } from "react-router-dom";
 
 export default function VillasPage() {
     const [villas, setVillas] = useState([]);
@@ -22,7 +23,9 @@ export default function VillasPage() {
     };
 
     const handleVillaClick = (villa) => {
-        console.log("Villa clicked:", villa);
+        if (!villa || !villa.id) return;
+        // Full page navigation to server-rendered property page
+        window.location.href = `/property/${villa.id}`;
     };
 
     const renderSkeletons = () =>
