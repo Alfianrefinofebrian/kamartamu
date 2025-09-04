@@ -12,7 +12,12 @@ export default defineConfig({
         react(),
     ],
     build: {
-        outDir: 'dist', // match Laravel's public folder
-        emptyOutDir: true, // optional, clears folder before build
+        manifest: true,
+        outDir: 'public/build', // Laravel expects assets in public/build
+        emptyOutDir: true,
+        rollupOptions: {
+            // ensure multiple entry points are preserved
+            input: ['resources/js/app.jsx', 'resources/js/property.jsx', 'resources/css/app.css'],
+        },
     },
 });

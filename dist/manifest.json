@@ -1,0 +1,35 @@
+{
+  "_propertydetail-BhwjgR0D.js": {
+    "file": "assets/propertydetail-BhwjgR0D.js",
+    "name": "propertydetail"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-1Kgut0wx.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.jsx": {
+    "file": "assets/app-DhzXelqj.js",
+    "name": "app",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "imports": [
+      "_propertydetail-BhwjgR0D.js"
+    ],
+    "css": [
+      "assets/app-1Kgut0wx.css"
+    ]
+  },
+  "resources/js/property.jsx": {
+    "file": "assets/property-Bt_b7wzP.js",
+    "name": "property",
+    "src": "resources/js/property.jsx",
+    "isEntry": true,
+    "imports": [
+      "_propertydetail-BhwjgR0D.js"
+    ]
+  }
+}
