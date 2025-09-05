@@ -1,0 +1,1 @@
+import{R as o,j as t,a,B as s,P as i}from"./propertydetail-BhwjgR0D.js";const e=document.getElementById("property-detail");if(e){const r=e.dataset.propertyId;o.createRoot(e).render(t.jsx(a.StrictMode,{children:t.jsx(s,{children:t.jsx(i,{initialId:r})})}))}
