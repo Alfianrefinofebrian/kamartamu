@@ -53,7 +53,7 @@ function PropertySlider({ images = [], fallback = null, altText = 'Property' }) 
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >
-      <img src={imgs[index]} alt={altText || 'Property'} className="w-full h-full object-cover" />
+  <img src={imgs[index]} alt={altText || 'Property'} className="w-full h-full object-cover object-center" />
 
       {/* arrows */}
       {imgs.length > 1 && (
@@ -99,17 +99,34 @@ export default function PropertyDetail({ initialId = null }) {
   const [loading, setLoading] = useState(true);
 
   const formatPrice = (v) => {
-    if (v === null || v === undefined || v === '') return '-';
-    const n = Number(String(v).replace(/[^0-9.-]+/g, ''));
-    if (Number.isNaN(n)) return v;
-    if (n >= 1000 && n < 1000000) return Math.round(n / 1000) + 'K';
-    return n.toLocaleString();
+  if (v === null || v === undefined || v === '') return '-';
+  const n = Number(String(v).replace(/[^0-9.-]+/g, ''));
+  if (Number.isNaN(n) || n === 0) return '-';
+  if (n >= 1000 && n < 1000000) return Math.round(n / 1000) + 'K';
+  return n.toLocaleString();
+  };
+
+  // Ensure displayed price always ends with 'K' (don't duplicate if already present)
+  const displayPriceWithK = (val) => {
+    if (!val || val === '-') return '-';
+    const s = String(val);
+    return s.endsWith('K') ? s : `${s}K`;
   };
 
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    fetch((typeof window !== 'undefined' ? window.location.origin : '') + '/api/properties/' + id)
+
+    // Extract numeric id from slug-like segment (e.g. kamartamu-selomartani-1 or selomartani-1)
+    const extractNumericId = (raw) => {
+      if (!raw) return raw;
+      const m = String(raw).match(/(\d+)$/);
+      return m ? m[1] : raw;
+    };
+
+    const fetchId = extractNumericId(id);
+
+    fetch((typeof window !== 'undefined' ? window.location.origin : '') + '/api/properties/' + fetchId)
       .then((res) => res.json())
   .then((data) => {
         // normalize main image and images list if present
@@ -145,8 +162,19 @@ export default function PropertyDetail({ initialId = null }) {
           if (typeof window !== 'undefined') {
             const title = `KAMAR TAMU ${data.name || ''} - KamarTamu`;
             document.title = title;
-            const slug = slugify(data.name || id);
-            const newUrl = `/property/${id}${slug ? '-' + slug : ''}`;
+            const nameSlug = slugify(data.name || '');
+
+            // Build final path segment: prefer existing readable slug, but ensure "kamartamu-" prefix and id present
+            let finalSegment = '';
+            if (!nameSlug) {
+              finalSegment = `kamartamu-${fetchId}`;
+            } else if (nameSlug.endsWith(`-${fetchId}`) || nameSlug === String(fetchId)) {
+              finalSegment = `kamartamu-${nameSlug}`;
+            } else {
+              finalSegment = `kamartamu-${nameSlug}-${fetchId}`;
+            }
+
+            const newUrl = `/property/${finalSegment}`;
             window.history.replaceState({}, title, newUrl);
           }
         } catch (e) {
@@ -181,34 +209,64 @@ export default function PropertyDetail({ initialId = null }) {
             <div>
               <h1 className="font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 uppercase">
                 <span className="block">KAMAR TAMU</span>
-                <span className="block">{property.name}</span>
+                <span className="block">{(property.title || property.name) || ''}</span>
               </h1>
 
               <div className="text-lg space-y-2 mb-6">
-                <p>
-                  <span className="font-semibold">Capacity :</span>{' '}
-                  {property.capacity ? `${property.capacity} people` : '-'}
-                </p>
-                <p>
-                  <span className="font-semibold">Max :</span>{' '}
-                  {property.max_capacity ? `${property.max_capacity} People` : '-'}
-                </p>
+                {Number(property.capacity) > 0 && (
+                  <div>
+                    <p>
+                      <span className="font-medium">Capacity :</span>{' '}
+                      {`${property.capacity} people`}
+                    </p>
+                    {property.capacity_note && (
+                      <p className="text-sm text-gray-600">{property.capacity_note}</p>
+                    )}
+                  </div>
+                )}
+
+                {(Number(property.max_people) > 0 || Number(property.max_capacity) > 0) && (
+                  <p>
+                    <span className="font-medium">Max :</span>{' '}
+                    {`${property.max_people || property.max_capacity} People`}
+                  </p>
+                )}
               </div>
 
-              <div className="text-lg space-y-2 mb-6">
-                <p>
-                  Weekday :{' '}
-                  <span className="font-semibold">{formatPrice(property.weekday_price)}</span>
-                </p>
-                <p>
-                  Weekend/Hari Libur :{' '}
-                  <span className="font-semibold">{formatPrice(property.weekend_price)}</span>
-                </p>
+             <div className="text-lg space-y-2 mb-6">
+  <p>
+    Weekday :{' '}
+    <span className="font-medium text-[#000000]">
+      {displayPriceWithK(
+        (property.prices && property.prices.weekday)
+          ? property.prices.weekday
+          : formatPrice(property.weekday_price)
+      )} {' '} (Senin – Kamis)
+    </span>
+  </p>
+  {property.weekday_note && (
+    <p className="text-sm text-gray-600">{property.weekday_note}</p>
+  )}
+
+  <p>
+    Weekend/Hari Libur :{' '}
+    <span className="font-medium text-[#000000]">
+      {displayPriceWithK(
+        (property.prices && property.prices.weekend)
+          ? property.prices.weekend
+          : formatPrice(property.weekend_price)
+      )} {' '} (Jumat – Minggu)
+    </span>
+  </p>
+                {property.weekend_note && <p className="text-sm text-gray-600">{property.weekend_note}</p>}
+
                 <p>
                   Hari Besar/Libur Panjang :{' '}
-                  <span className="font-semibold">{formatPrice(property.holiday_price)}</span>
+                  <span className="font-medium">{displayPriceWithK((property.prices && property.prices.holiday) ? property.prices.holiday : formatPrice(property.holiday_price))}</span>
                 </p>
-                {property.note && <p className="text-sm text-gray-600">{property.note}</p>}
+                {property.holiday_note && <p className="text-sm text-gray-600">{property.holiday_note}</p>}
+
+                {(property.discount_info || property.note) && <p className="text-sm text-gray-600">{property.discount_info || property.note}</p>}
               </div>
             </div>
 
