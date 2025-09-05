@@ -37,6 +37,13 @@ class PropertyController extends Controller
     // Detail property by ID
     public function show($id)
     {
+        // Accept slug-like segments such as "kamartamu-selomartani-1" or "selomartani-1"
+        if (!is_numeric($id)) {
+            if (preg_match('/(\d+)$/', $id, $matches)) {
+                $id = $matches[1];
+            }
+        }
+
         $property = Property::with('images')->findOrFail($id);
 
         // Normalize related images to full URLs

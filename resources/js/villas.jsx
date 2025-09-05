@@ -24,8 +24,19 @@ export default function VillasPage() {
 
     const handleVillaClick = (villa) => {
         if (!villa || !villa.id) return;
+
+        const slugify = (s) =>
+            String(s || '')
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+
+        const nameSlug = slugify(villa.name || '');
+        const segment = nameSlug ? `kamartamu-${nameSlug}-${villa.id}` : `kamartamu-${villa.id}`;
         // Full page navigation to server-rendered property page
-        window.location.href = `/property/${villa.id}`;
+        window.location.href = `/property/${segment}`;
     };
 
     const renderSkeletons = () =>
