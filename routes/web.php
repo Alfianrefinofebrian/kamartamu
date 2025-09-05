@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\VillaController;
 
 Route::get('/', function () {
     return view('landingpage'); // blade kamu
