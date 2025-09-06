@@ -66,6 +66,8 @@ class PropertyResource extends Resource
                 Tables\Columns\TextColumn::make('weekend_price')->money('IDR'),
                 Tables\Columns\TextColumn::make('holiday_price')->money('IDR'),
             ])
+            ->defaultSort('sort', 'asc')
+            ->reorderable('sort')
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

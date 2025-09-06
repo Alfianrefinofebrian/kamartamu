@@ -61,7 +61,7 @@ export default function VillasPage() {
                 {/* Header */}
                 <div className="mb-12">
                     <h2 className="text-4xl md:text-6xl font-bold text-[#00576D]">
-                        VILLAS
+                        OUR VILLAS
                     </h2>
                 </div>
 

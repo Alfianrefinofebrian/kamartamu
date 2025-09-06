@@ -17,6 +17,13 @@ export default function Navbar() {
       });
 
       setOpen(false);
+    } else {
+      // jika section nggak ada di halaman sekarang, fallback ke halaman contact
+      if (id === "contact") {
+        // gunakan href langsung supaya navigasi server-side Laravel tetap berjalan
+        window.location.href = "/contact";
+        setOpen(false);
+      }
     }
   };
 
@@ -30,7 +37,7 @@ export default function Navbar() {
           <img
             src="/images/logo.png"
             alt="Kamar Tamu Logo"
-            className="h-12 w-auto"
+            className="h-14 w-auto"
           />
         </a>
 
@@ -51,7 +58,7 @@ export default function Navbar() {
             onClick={() => scrollToSection("booking")}
             className="hover:text-gray-600 transition-colors duration-200"
           >
-            Booking Cepat
+            Quick Booking
           </button>
           <button
             onClick={() => scrollToSection("contact")}
@@ -107,7 +114,7 @@ export default function Navbar() {
             onClick={() => scrollToSection("booking")}
             className="hover:text-gray-600 transition-colors duration-200 text-left"
           >
-            Booking Cepat
+            Quick Booking
           </button>
           <button
             onClick={() => scrollToSection("contact")}

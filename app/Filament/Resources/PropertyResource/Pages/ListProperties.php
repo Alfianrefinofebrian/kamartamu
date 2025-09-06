@@ -14,6 +14,10 @@ class ListProperties extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\Action::make('reorder_hint')
+                ->label('Drag rows to reorder')
+                ->disabled()
+                ->color('secondary'),
         ];
     }
 }

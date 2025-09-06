@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // â¬
 import Navbar from "./Navbar";
 import HeroSlider from "./hero-slider"; 
 import VillasPage from "./villas"; 
-import PropertyDetail from "./components/villas/propertydetail";  
+import PropertyDetail from "./components/villas/propertydetail";
 import "../css/app.css";
 
 export default function App() {
