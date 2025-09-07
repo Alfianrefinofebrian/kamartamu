@@ -10,6 +10,12 @@ class ListProperties extends ListRecords
 {
     protected static string $resource = PropertyResource::class;
 
+    // Tell Filament which column stores the order so the table becomes reorderable
+    protected function getTableReorderColumn(): ?string
+    {
+        return 'sort';
+    }
+
     protected function getHeaderActions(): array
     {
         return [

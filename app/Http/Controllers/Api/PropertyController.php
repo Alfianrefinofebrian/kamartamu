@@ -11,7 +11,7 @@ class PropertyController extends Controller
     // List all properties
     public function index()
     {
-        $properties = Property::with('images')->get()->map(function ($p) {
+        $properties = Property::with('images')->ordered()->get()->map(function ($p) {
             // Normalize related images to full URLs
             $p->images = $p->images->map(function ($img) {
                 $url = $img->image_url ? asset('storage/' . $img->image_url) : null;

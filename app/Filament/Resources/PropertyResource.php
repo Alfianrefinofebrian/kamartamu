@@ -57,6 +57,10 @@ class PropertyResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('sort')
+                    ->label('Order')
+                    ->sortable()
+                    ->width('80px'),
                 Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('location')->sortable(),
                 Tables\Columns\ImageColumn::make('image_url')->square(),
@@ -64,7 +68,6 @@ class PropertyResource extends Resource
                 Tables\Columns\TextColumn::make('max_capacity'),
                 Tables\Columns\TextColumn::make('weekday_price')->money('IDR'),
                 Tables\Columns\TextColumn::make('weekend_price')->money('IDR'),
-                Tables\Columns\TextColumn::make('holiday_price')->money('IDR'),
             ])
             ->defaultSort('sort', 'asc')
             ->reorderable('sort')
