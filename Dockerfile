@@ -48,5 +48,8 @@ RUN if [ ! -f .env ]; then cp .env.example .env; fi \
 ENV PORT=8080
 EXPOSE 8080
 
-# Serve Laravel via PHP built-in server (sufficient for small apps and Railway)
-CMD php -S 0.0.0.0:${PORT} -t public
+# Start script ensures cache/storage paths exist at runtime (esp. with volumes)
+COPY docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+CMD ["/usr/local/bin/start.sh"]
