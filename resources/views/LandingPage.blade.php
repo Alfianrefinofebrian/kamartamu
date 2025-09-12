@@ -241,13 +241,13 @@
       </a>
     </div>
 
-    <!-- Kolom 2: Explore -->
+  <!-- Kolom 2: Explore -->
     <div>
       <h3 class="font-semibold mb-4">Explore</h3>
       <ul class="space-y-3">
-        <li>Home</li>
-        <li>Villas</li>
-        <li>Contact</li>
+    <li><a href="{{ url('/') }}" class="hover:text-gray-300">Home</a></li>
+    <li><a href="#villas" class="hover:text-gray-300">Villas</a></li>
+    <li><a href="#contact" class="hover:text-gray-300">Contact</a></li>
       </ul>
     </div>
 
@@ -255,8 +255,8 @@
     <div>
       <h3 class="font-semibold mb-4">Information</h3>
       <ul class="space-y-3">
-        <li>Our Brand
-        <li>Our Service</li>
+    <li><a href="#brand" class="hover:text-gray-300">Our Brand</a></li>
+    <li><a href="#services" class="hover:text-gray-300">Our Service</a></li>
       </ul>
     </div>
 
@@ -266,7 +266,7 @@
       <ul class="space-y-2">
         <li>Yogyakarta, IDN</li>
         <li><a href="https://wa.me/62895372290006" target="_blank" class="hover:text-gray-300">+62 895-3722-90006</a></li>
-        <li><a href="mailto:kamartamu@gmail.com" class="hover:text-gray-300">Kamartamu@gmail.com</a></li>
+        <li><a href="mailto:booking@kamartamuindonesia.com" class="hover:text-gray-300">booking@kamartamuindonesia.com</a></li>
       </ul>
 
       <!-- Sosmed -->
@@ -287,6 +287,10 @@
     </div>
   </div>
 </footer>
+
+<!-- Anchor targets for footer links (placeholder sections) -->
+<section id="brand" class="scroll-mt-20"></section>
+<section id="services" class="scroll-mt-20"></section>
 
 <!-- Copyright -->
 <div class="bg-[#FFF8E7] text-left text-sm text-gray-700 py-4 pl-2 mt-1">
